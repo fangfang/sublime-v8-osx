@@ -4096,7 +4096,7 @@ loop:   for (;;) {
                 statements();
             }
             advance('(end)');
-
+            
             // Check queued 'x is not defined' instances to see if they're still undefined.
             for (i = 0; i < JSHINT.undefs.length; i += 1) {
                 k = JSHINT.undefs[i].slice(0);
@@ -4111,6 +4111,7 @@ loop:   for (;;) {
             if (e) {
                 var nt = nexttoken || {};
                 JSHINT.errors.push({
+                    id        : "fatal",
                     raw       : e.raw,
                     reason    : e.message,
                     line      : e.line || nt.line,

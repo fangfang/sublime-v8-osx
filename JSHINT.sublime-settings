@@ -21,7 +21,6 @@
                                    // enables 'strict')
             "immed"       : false, // if immediate invocations must be wrapped in parens
             "iterator"    : false, // if the `__iterator__` property should be allowed
-            "warnings"    : true,  // if the `warnings` should be shown
             "jquery"      : false, // if jQuery globals should be predefined
             "lastsemic"   : false, // if semicolons may be ommitted for the trailing
                                    // statements inside of a one-line blocks.
@@ -49,7 +48,7 @@
             "proto"       : false, // if the `__proto__` property should be allowed
             "prototypejs" : false, // if Prototype and Scriptaculous globals should be
                                    // predefined
-            "regexdash"   : true, // if unescaped first/last dash (-) inside brackets
+            "regexdash"   : true,  // if unescaped first/last dash (-) inside brackets
                                    // should be tolerated
             "regexp"      : false, // if the . should not be allowed in regexp literals
             "rhino"       : false, // if the Rhino environment globals should be predefined
@@ -65,6 +64,7 @@
             "trailing"    : false, // if trailing whitespace rules apply
             "validthis"   : true,  // if 'this' inside a non-constructor function is valid.
                                    // This is a function scoped option only.
+            "warnings"    : true,  // if the `warnings` should be shown
             "white"       : false, // if strict whitespace rules apply
             "wsh"         : false  // if the Windows Scripting Host environment globals
                                    // should be predefined	
