@@ -3,6 +3,7 @@
 import sublime, sublime_plugin
 import PyV8
 import sys, re
+from core import package_file
 
 JSHINT_VIEW_NAME = 'jshint_view'
 class JsHintCommand(sublime_plugin.WindowCommand):
@@ -12,7 +13,7 @@ class JsHintCommand(sublime_plugin.WindowCommand):
 		self.window = window
 		ctx = PyV8.JSContext()
 		ctx.enter()
-		jshint_file = file("jshint.js")
+		jshint_file = file(package_file("jshint.js"))
 		source = jshint_file.read()
 		self.jshint = ctx.eval(source)
 		jshint_file.close()		
@@ -31,7 +32,7 @@ class JsHintCommand(sublime_plugin.WindowCommand):
 		self.panel.insert(edit, self.panel.size(), view.file_name() + '\n')
 		self.panel.insert(edit, self.panel.size(), "parsing...")
 
-		settings = sublime.load_settings('JSHINT.sublime-settings')
+		settings = sublime.load_settings(package_file('JSHINT.sublime-settings'))
 		hint_options = dump_settings(settings, 
 										["asi", "bitwise", "boss","browser","couch","curly","debug","devel","dojo","eqeqeq","eqnull","es5","esnext","evil","expr","forin","funcscope","globalstrict","immed","iterator","jquery","lastsemic","latedef","laxbreak","loopfunc","mootools","multistr","newcap","noarg","node","noempty","nonew","nonstandard","nomen","onevar","onecase","passfail","plusplus","proto","prototypejs","regexdash","regexp","rhino","undef","scripturl","shadow","smarttabs","strict","sub","supernew","trailing","validthis","white","wsh"])
 

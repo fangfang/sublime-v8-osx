@@ -3,6 +3,10 @@
 import sublime, sublime_plugin
 import PyV8,sys,os,re
 
+MODULE_NAME = 'sublime-v8-osx'
+def package_file(filename):
+	return os.path.join(sublime.packages_path(), MODULE_NAME, filename)	
+
 JSCONSOLE_VIEW_NAME = 'jsconsole_view'
 class JsConsoleCommand(sublime_plugin.WindowCommand):
 	def __init__(self, window):
@@ -21,7 +25,7 @@ class JsConsoleCommand(sublime_plugin.WindowCommand):
 			JsConsoleCommand.history_index = -1
 
 		self.window.run_command("show_panel", {"panel": "output."+JSCONSOLE_VIEW_NAME})
-		self.console.set_syntax_file('Console.tmLanguage')
+		self.console.set_syntax_file(package_file('Console.tmLanguage'))
 		self.window.focus_view(self.console)
 
 def js_print_m(view, msg):
