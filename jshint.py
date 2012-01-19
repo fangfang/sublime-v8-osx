@@ -34,7 +34,6 @@ class JsHintCommand(sublime_plugin.WindowCommand):
 		settings = sublime.load_settings('JSHINT.sublime-settings')
 		hint_options = dump_settings(settings, 
 										["asi", "bitwise", "boss","browser","couch","curly","debug","devel","dojo","eqeqeq","eqnull","es5","esnext","evil","expr","forin","funcscope","globalstrict","immed","iterator","jquery","lastsemic","latedef","laxbreak","loopfunc","mootools","multistr","newcap","noarg","node","noempty","nonew","nonstandard","nomen","onevar","onecase","passfail","plusplus","proto","prototypejs","regexdash","regexp","rhino","undef","scripturl","shadow","smarttabs","strict","sub","supernew","trailing","validthis","white","wsh"])
-		print hint_options
 		self.panel.end_edit(edit)
 		self.panel.set_read_only(True)
 
@@ -61,7 +60,6 @@ class JsHintCommand(sublime_plugin.WindowCommand):
 								details.append(' character : ' + str(error.character))
 							if('evidence' in keys):
 								details.append(' near : ' + error.evidence.decode("UTF-8"));
-							print settings.get('warnings')
 							if(settings.get("warnings") or 'id' in keys and not re.compile("^warning ").match(error.id)):
 								self.panel.insert(edit, self.panel.size(), error.id + ' : ' + error.reason + ' ,'.join(details) + ' \n')
 							if(re.compile("^warning ").match(error.id)):
