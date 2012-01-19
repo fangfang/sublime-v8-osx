@@ -16,7 +16,7 @@ class JsConsoleCommand(sublime_plugin.WindowCommand):
 		edit = self.console.begin_edit()
 		self.console.insert(edit, 0, "#JavaScript Console version 0.1 \n")
 		self.console.end_edit(edit)
-		JsConsoleCommand.core = JSCore()
+		JsConsoleCommand.core = JSCore(self.console)
 		JsConsoleCommand.ctx = PyV8.JSContext(JsConsoleCommand.core)
 		JsConsoleCommand.js = PyV8.JSEngine()
 	def run(self):
@@ -58,7 +58,8 @@ class JsExecCommand(sublime_plugin.TextCommand):
 				JsConsoleCommand.ctx.enter()
 				r = JsConsoleCommand.ctx.eval(command)
 				JsConsoleCommand.ctx.leave()
-				js_print_m(self.view, r)
+				if(r):
+					js_print_m(self.view, r)
 			except Exception, ex:
 				js_print_m(self.view, ex)
 		self.view.sel().clear()
@@ -100,8 +101,8 @@ class EventListener(sublime_plugin.EventListener):
 			view.set_read_only(True)
 
 class JSCore(PyV8.JSClass):
-	def __init__(self):
-		self.console = JS_Console()
+	def __init__(self, console):
+		self.console = JS_Console(console)
 		self.sublime = sublime
 		self._js_modules = {}
 		for (root, dirs, files) in os.walk(sublime.packages_path()):
@@ -197,6 +198,8 @@ class JSCore(PyV8.JSClass):
 				return ex
 		
 class JS_Console(PyV8.JSClass):
+	def __init__(self, console):
+		self._console = console
 	def log(self, msg):
 		print msg
-		return msg
+		js_print_m(self._console, msg)
